@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f0f4f8; /* Soft light blue/gray background */
+  --foreground: #0f172a; /* Slate 900 for text */
+  --primary: #2563eb; /* Blue 600 */
+  --primary-foreground: #ffffff;
+  --secondary: #eff6ff; /* Blue 50 */
+  --secondary-foreground: #1e3a8a; /* Blue 900 */
+  --accent: #38bdf8; /* Light Blue 400 */
+  --accent-foreground: #ffffff;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --border: #e2e8f0; /* Slate 200 */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide scrollbar for clean horizontal scrolls */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

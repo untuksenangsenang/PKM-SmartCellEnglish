@@ -22,7 +22,7 @@ export default function ModulesPage() {
         <input 
           type="text" 
           placeholder="Cari modul..." 
-          className="w-full bg-white border border-border rounded-xl py-3 pl-10 pr-4 outline-none focus:border-primary transition-colors text-sm"
+          className="w-full bg-card border border-border rounded-xl py-3 pl-10 pr-4 outline-none focus:border-primary transition-colors text-sm"
         />
       </div>
 

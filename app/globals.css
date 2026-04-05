@@ -1,19 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f0f4f8; /* Soft light blue/gray background */
-  --foreground: #0f172a; /* Slate 900 for text */
-  --primary: #2563eb; /* Blue 600 */
+  --background: #f0f4f8;
+  --foreground: #0f172a;
+  --primary: #2563eb;
   --primary-foreground: #ffffff;
-  --secondary: #eff6ff; /* Blue 50 */
-  --secondary-foreground: #1e3a8a; /* Blue 900 */
-  --accent: #38bdf8; /* Light Blue 400 */
+  --secondary: #eff6ff;
+  --secondary-foreground: #1e3a8a;
+  --accent: #38bdf8;
   --accent-foreground: #ffffff;
   --card: #ffffff;
   --card-foreground: #0f172a;
-  --border: #e2e8f0; /* Slate 200 */
+  --border: #e2e8f0;
 }
 
+.dark {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --secondary: #1e293b;
+  --secondary-foreground: #e2e8f0;
+  --accent: #0ea5e9;
+  --accent-foreground: #ffffff;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --border: #334155;
+}
+
+/* mapping ke tailwind */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -29,14 +44,14 @@
   --font-sans: var(--font-inter);
 }
 
+/* tambahkan ini */
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  @apply bg-background text-foreground;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Hide scrollbar for clean horizontal scrolls */
+/* scrollbar */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

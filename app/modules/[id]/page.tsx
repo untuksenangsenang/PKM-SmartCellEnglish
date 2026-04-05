@@ -2,10 +2,12 @@
 
 import { use } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowLeft, BookOpen, Volume2, CheckCircle2 } from "lucide-react";
 
 export default function ModuleDetail({ params }: { params: Promise<{ id: string }> }) {
   const unwrappedParams = use(params);
+  const router = useRouter();
 
   // Mock content for demonstration based on the module requested
   const getModuleTitle = () => {
@@ -18,10 +20,30 @@ export default function ModuleDetail({ params }: { params: Promise<{ id: string 
     }
   };
 
+  const handleComplete = () => {
+    // 1. Update Daily Goals
+    const savedGoals = localStorage.getItem("smart_cell_goals");
+    let goals = savedGoals ? JSON.parse(savedGoals) : { completed: 1, total: 3 };
+    if (goals.completed < goals.total) {
+      goals.completed += 1;
+    }
+    localStorage.setItem("smart_cell_goals", JSON.stringify(goals));
+
+    // 2. Update Continue Learning
+    localStorage.setItem("smart_cell_recent", JSON.stringify({
+      id: unwrappedParams.id,
+      title: getModuleTitle(),
+      subtitle: "Terakhir Dipelajari"
+    }));
+
+    // 3. Go back or to dashboard
+    router.push("/");
+  };
+
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50/50 pb-24">
+    <div className="flex flex-col min-h-screen bg-background pb-24">
       {/* Top App Bar */}
-      <div className="sticky top-0 w-full bg-white border-b border-border z-40 px-4 h-16 flex items-center justify-between shadow-sm">
+      <div className="sticky top-0 w-full bg-card border-b border-border z-40 px-4 h-16 flex items-center justify-between shadow-sm">
         <Link href="/modules" className="p-2 -ml-2 rounded-full hover:bg-secondary/50 text-foreground">
           <ArrowLeft className="w-5 h-5" />
         </Link>
@@ -40,7 +62,7 @@ export default function ModuleDetail({ params }: { params: Promise<{ id: string 
         </div>
 
         {/* Content Section */}
-        <div className="bg-white rounded-3xl border border-border p-6 shadow-sm">
+        <div className="bg-card rounded-3xl border border-border p-6 shadow-sm">
           <p className="text-foreground/80 leading-relaxed text-sm">
             Halo! Pada modul ini, kita akan fokus mempelajari kosakata baru dan cara mengucapkannya yang benar. Pelajari setiap poin dengan saksama dan cobalah baca kembali sambil meniru pengucapan.
           </p>
@@ -51,7 +73,7 @@ export default function ModuleDetail({ params }: { params: Promise<{ id: string 
           <h3 className="font-bold text-foreground px-2">Vocabulary (Kosakata)</h3>
           
           {[1, 2, 3, 4, 5].map((item) => (
-            <div key={item} className="bg-white p-4 rounded-2xl border border-border shadow-sm flex items-center justify-between group hover:border-primary/50 transition-colors cursor-pointer">
+            <div key={item} className="bg-card p-4 rounded-2xl border border-border shadow-sm flex items-center justify-between group hover:border-primary/50 transition-colors cursor-pointer">
               <div className="flex flex-col">
                 <span className="font-bold text-lg text-primary">Contoh Kata {item}</span>
                 <span className="text-sm text-foreground/60 italic">/kosa kata bahasa indonesia/</span>
@@ -65,7 +87,10 @@ export default function ModuleDetail({ params }: { params: Promise<{ id: string 
 
         {/* Action Button */}
         <div className="pt-6 pb-2">
-          <button className="w-full bg-primary flex items-center justify-center gap-2 text-primary-foreground font-semibold py-4 rounded-2xl text-lg hover:bg-primary/90 transition-colors shadow">
+          <button 
+            onClick={handleComplete}
+            className="w-full bg-primary flex items-center justify-center gap-2 text-primary-foreground font-semibold py-4 rounded-2xl text-lg hover:bg-primary/90 transition-colors shadow"
+          >
             Tandai Selesai <CheckCircle2 className="w-5 h-5" />
           </button>
         </div>

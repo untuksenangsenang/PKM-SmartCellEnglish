@@ -1,18 +1,39 @@
+"use client";
+
 import Link from "next/link";
 import { BookOpen, Video, Mic, CheckSquare, Award } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [goals, setGoals] = useState({ completed: 1, total: 3 });
+  const [recent, setRecent] = useState({ id: "greetings", title: "Greetings & Introductions", subtitle: "Modul 1" });
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const savedGoals = localStorage.getItem("smart_cell_goals");
+    if (savedGoals) {
+      setGoals(JSON.parse(savedGoals));
+    }
+    
+    const savedRecent = localStorage.getItem("smart_cell_recent");
+    if (savedRecent) {
+      setRecent(JSON.parse(savedRecent));
+    }
+    
+    setIsLoaded(true);
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen px-4 pt-6 pb-24 md:pb-12 gap-8">
       {/* Header & Greeting */}
       <section className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Hi, Student 👋</h1>
+          <h1 className="text-2xl font-bold text-foreground">Hi, Student!</h1>
           <p className="text-sm text-foreground/60">Ready to learn English today?</p>
         </div>
-        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center border border-primary/20">
+        <Link href="/profile" className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center border border-primary/20 hover:bg-primary/20 transition-colors">
           <span className="text-xl font-bold text-primary">A</span>
-        </div>
+        </Link>
       </section>
 
       {/* Progress Tracker Card */}
@@ -23,9 +44,14 @@ export default function Home() {
           </div>
           <div className="flex-1">
             <h2 className="font-semibold text-lg">Daily Goal</h2>
-            <p className="text-white/80 text-sm">2 of 3 lessons completed</p>
+            <p className="text-white/80 text-sm">
+              {isLoaded ? `${goals.completed} of ${goals.total} lessons completed` : "Loading..."}
+            </p>
             <div className="w-full h-2 bg-white/30 rounded-full mt-3 overflow-hidden">
-              <div className="h-full bg-white rounded-full w-2/3"></div>
+              <div 
+                className="h-full bg-white rounded-full transition-all duration-1000 ease-out" 
+                style={{ width: `${(goals.completed / goals.total) * 100}%` }}
+              ></div>
             </div>
           </div>
         </div>
@@ -83,14 +109,14 @@ export default function Home() {
           <h2 className="text-lg font-bold text-foreground">Continue Learning</h2>
           <Link href="/modules" className="text-primary text-sm font-medium hover:underline">See All</Link>
         </div>
-        <Link href="/modules/greetings">
+        <Link href={`/modules/${recent.id}`}>
           <div className="bg-card flex gap-4 p-4 rounded-2xl border border-border shadow-sm hover:shadow border-l-4 border-l-primary items-center">
             <div className="w-12 h-12 bg-secondary rounded-xl flex items-center justify-center flex-shrink-0">
               <BookOpen className="w-6 h-6 text-primary" />
             </div>
             <div className="flex-1">
-              <h4 className="font-medium text-foreground text-sm">Greetings & Introductions</h4>
-              <p className="text-xs text-foreground/60 mt-1">Modul 1</p>
+              <h4 className="font-medium text-foreground text-sm">{recent.title}</h4>
+              <p className="text-xs text-foreground/60 mt-1">{recent.subtitle}</p>
             </div>
             <div className="w-8 h-8 rounded-full border border-border flex items-center justify-center text-primary bg-secondary/50">
               <span className="text-xs font-bold">▶</span>

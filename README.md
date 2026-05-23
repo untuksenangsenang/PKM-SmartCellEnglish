@@ -21,28 +21,6 @@
 - **Animation**: [Framer Motion](https://www.framer.com/motion/)
 - **Typography**: [Google Fonts - Inter](https://fonts.google.com/specimen/Inter)
 
-## 📂 Struktur Direktori
-
-\`\`\`
-├── app/
-│   ├── globals.css           # Konfigurasi Tema (Warna brand & dasar) Tailwind CSS v4
-│   ├── layout.tsx            # Struktur Root (Memuat Inter Font, Navbar, Footer)
-│   ├── page.tsx              # Halaman Dashboard Utama / Beranda
-│   ├── modules/              # Halaman Modul Pembelajaran
-│   ├── videos/               # Halaman Daftar Video Pembelajaran
-│   ├── podcast/              # Halaman Latihan Listening & Speaking
-│   └── quiz/                 # Halaman Tantangan Gamifikasi Kuis
-├── components/               # Komponen UI Reusable
-│   ├── Footer.tsx            # Informasi Kredit Mitra
-│   ├── ModuleCard.tsx        # Kartu navigasi progres Modul
-│   ├── Navbar.tsx            # Navigasi utama adaptif (Desktop & Mobile Bottom Nav)
-│   └── PodcastPlayer.tsx     # Player MP3/Audio tetap di layar bawah (Sticky-bottom)
-├── lib/
-│   └── utils.ts              # Fungsi utilitas (penggabungan kelas Tailwind dengan cn)
-├── public/                   # Aset Statis (Icon, gambar statis pendukung, dll)
-└── package.json              # Daftar dependencies proyek
-\`\`\`
-
 ## 🚀 Cara Menjalankan Secara Lokal (Development)
 
 Pastikan Node.js (minimal versi 18.x) telah terinstall.
